@@ -36,8 +36,7 @@ public class ProjectTask {
     @Column(name = "taskStatus")
     private TaskStatus taskStatus;
 
-    @Min(value = 1,message = "The min value of priority is 1")
-    @Max(value = 5, message = "The max value of priority is 5")
+
     @Column(name = "priority")
     private int priority;
 
