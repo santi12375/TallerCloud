@@ -29,7 +29,7 @@ public class ProjectTask {
     private String acceptanceCriteria;
 
     @Column(name = "status")
-    private String status;
+    private TaskStatus taskStatus;
 
     @Column(name = "priority")
     private int priority;
