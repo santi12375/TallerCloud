@@ -9,6 +9,7 @@ import cloud.tallercloud.services.dto.ProjectTaskInDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /*Cuando empezamos a bajar en capas , necesito objetos de la capa anterior*/
@@ -31,5 +32,10 @@ public class ProjectTaskService {
 
     public List<ProjectTask> findAllByTaskStatus(TaskStatus taskStatus){
         return this.repository.findAllByTaskStatus(taskStatus);
+    }
+
+    @Transactional
+    public void updateProjectTaskInProgress(Long id){
+        this.repository.markProjectTaskAsInProgress(id);
     }
 }

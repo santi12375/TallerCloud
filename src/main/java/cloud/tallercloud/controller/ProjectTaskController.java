@@ -5,6 +5,8 @@ import cloud.tallercloud.persistence.entity.TaskStatus;
 import cloud.tallercloud.services.ProjectTaskService;
 import cloud.tallercloud.services.dto.ProjectTaskInDTO;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,4 +33,10 @@ public class ProjectTaskController {
         return this.projectTaskService.findAllByTaskStatus(taskStatus);
     }
 
+    /*Patch para solo modificar un solo campo , no todos*/
+    @PatchMapping("/mark_as_inProgress/{id}")
+    public ResponseEntity<Void> markProjectTaskAsInProgress(@PathVariable ("id") Long id){
+        this.projectTaskService.updateProjectTaskInProgress(id);
+        return ResponseEntity.noContent().build();
+    }
 }

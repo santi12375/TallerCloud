@@ -5,6 +5,8 @@ package cloud.tallercloud.persistence.entity;
 import lombok.Getter;
 import lombok.Setter;
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.Objects;
 
@@ -19,15 +21,16 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-
+    @NotBlank(message = "You must fill this field")
     @Column(unique = true ,name = "projectName", nullable = false)
     private String projectName;
 
-
+    @NotBlank(message = "You must fill this field")
+    @Size(min = 5,max = 7,message = "The project identifier value must be between 5 and 7")
     @Column(name = "projectIdentifier", unique = true , nullable = false, updatable = false)
     private String projectIdentifier;
 
-
+    @NotBlank(message = "You must fill this field")
     @Column(name = "description", nullable = false)
     private String description;
 
