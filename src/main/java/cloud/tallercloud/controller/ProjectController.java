@@ -3,37 +3,33 @@ package cloud.tallercloud.controller;
 import cloud.tallercloud.commons.FormatParser;
 import cloud.tallercloud.helpers.Response;
 import cloud.tallercloud.helpers.ResponseBuild;
-import cloud.tallercloud.persistence.entity.ProjectTask;
-import cloud.tallercloud.services.ProjectTaskService;
+import cloud.tallercloud.persistence.entity.Project;
+import cloud.tallercloud.services.ProjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
-@RequestMapping("/tasks")
+@RequestMapping("/projects")
 @RequiredArgsConstructor
-public class ProjectTaskController {
+public class ProjectController {
 
-    private final ProjectTaskService projectTaskService;
+    private final ProjectService projectService;
     private final ResponseBuild builder;
     private final FormatParser formatParser;
 
     @PostMapping
-    public Response save(@Valid @RequestBody ProjectTask projectTask, BindingResult result) {
+    public Response save(@Valid @RequestBody Project project, BindingResult result){
         if (result.hasErrors()) {
             return builder.failed(formatParser.formatMessage(result));
         }
-        projectTaskService.save(projectTask);
-        return builder.success(projectTask);
+        projectService.save(project);
+        return builder.success(project);
     }
 
     @GetMapping
-    public List<ProjectTask> findAll(){
-        return this.projectTaskService.findAll();
-    }
+    public Response findAll() { return builder.success(projectService.findAll());}
 
 }
-
