@@ -11,6 +11,7 @@ public class ProjectInDtoToProject implements IMapper<ProjectInDTO, Project> {
     public Project map(ProjectInDTO in) {
         Project project =  new Project();
         project.setProjectName(in.getProjectName());
+        project.setProjectIdentifier(in.getProjectIdentifier());
         project.setDescription(in.getDescription());
         project.setStartDate(in.getStartDate());
         project.setEndDate(in.getEndDate());

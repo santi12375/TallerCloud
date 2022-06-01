@@ -5,6 +5,7 @@ import cloud.tallercloud.helpers.Response;
 import cloud.tallercloud.helpers.ResponseBuild;
 import cloud.tallercloud.persistence.entity.ProjectTask;
 import cloud.tallercloud.services.ProjectTaskService;
+import cloud.tallercloud.services.dto.ProjectTaskInDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -22,12 +23,12 @@ public class ProjectTaskController {
     private final FormatParser formatParser;
 
     @PostMapping
-    public Response save(@Valid @RequestBody ProjectTask projectTask, BindingResult result) {
+    public Response save(@Valid @RequestBody ProjectTaskInDTO projectTaskInDTO, BindingResult result) {
         if (result.hasErrors()) {
             return builder.failed(formatParser.formatMessage(result));
         }
-        projectTaskService.save(projectTask);
-        return builder.success(projectTask);
+        projectTaskService.save(projectTaskInDTO);
+        return builder.success(projectTaskInDTO);
     }
 
     @GetMapping

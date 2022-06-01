@@ -24,7 +24,10 @@ public class ProjectTaskServiceImpl implements ProjectTaskService{
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void save(ProjectTask projectTask) { repository.save(projectTask); }
+    public void save(ProjectTaskInDTO projectTaskInDTO) {
+        ProjectTask projectTask = mapper.map(projectTaskInDTO);
+        repository.save(projectTask);
+    }
 
     @Override
     @Transactional(readOnly = true)

@@ -22,11 +22,9 @@ public class ProjectTask {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotBlank(message = "You must fill this field")
     @Column(name = "name", nullable = false)
     private String name;
 
-    @NotBlank(message = "You must fill this field")
     @Column(name = "summary", nullable = false)
     private String summary;
 
@@ -36,12 +34,9 @@ public class ProjectTask {
     @Column(name = "taskStatus")
     private TaskStatus taskStatus;
 
-
     @Column(name = "priority")
     private int priority;
 
-    @Min(value = 1,message = "Hours must be greater than 0")
-    @Max(value = 8, message = "Hours must be less than 9")
     @Column(name = "hours" )
     private double hours;
 
