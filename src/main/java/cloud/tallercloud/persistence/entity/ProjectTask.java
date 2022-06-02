@@ -1,14 +1,13 @@
 package cloud.tallercloud.persistence.entity;
 
 
+import cloud.tallercloud.commons.EntityBase;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.*;
 import java.util.Date;
 import java.util.Objects;
 
@@ -16,56 +15,48 @@ import java.util.Objects;
 @Setter
 @Entity
 @Table(name = "projectTask")
-public class ProjectTask {
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class ProjectTask extends EntityBase {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
+    @NotEmpty(message = "El name no puede ser vacio")
     @Column(name = "name", nullable = false)
     private String name;
 
+    @NotEmpty(message = "El summary no puede ser vacio")
     @Column(name = "summary", nullable = false)
     private String summary;
 
     @Column(name = "acceptanceCriteria")
     private String acceptanceCriteria;
 
+    @Pattern(regexp="^(Not Stared|In Progress|completed|deleted)$",message="invalid code")
     @Column(name = "taskStatus")
-    private TaskStatus taskStatus;
-
+    private String taskStatus;
+    @Min(1)
+    @Max(5)
     @Column(name = "priority")
     private int priority;
-
+    @Min(1)
+    @Max(8)
+    @Positive (message = "La cantidad debe ser mayor que cero")
     @Column(name = "hours" )
     private double hours;
-
+    @JsonFormat(pattern="yyyy-MM-dd")
     @Column(name = "startDate")
     private Date startDate;
-
+    @JsonFormat(pattern="yyyy-MM-dd")
     @Column(name = "endDate")
     private Date endDate;
-
+    @NotEmpty(message = "No puede estar en blanco y no se puede actualizar")
     @Column(name = "projectIdentifier", updatable = false)
     private String projectIdentifier;
 
     @JsonBackReference
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "backlog_id")
+    @NotEmpty (message = "El projectIdentifier no puede ser vacio")
     private Backlog backlog;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ProjectTask that = (ProjectTask) o;
-
-        return Objects.equals(id,that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
 }

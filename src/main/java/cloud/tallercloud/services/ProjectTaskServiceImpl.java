@@ -1,11 +1,7 @@
 package cloud.tallercloud.services;
 
-import cloud.tallercloud.mapper.ProjectTaskInDtoToProjectTask;
-import cloud.tallercloud.persistence.entity.Project;
 import cloud.tallercloud.persistence.entity.ProjectTask;
-import cloud.tallercloud.persistence.entity.TaskStatus;
 import cloud.tallercloud.persistence.repository.ProjectTaskRepository;
-import cloud.tallercloud.services.dto.ProjectTaskInDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,12 +16,10 @@ import java.util.List;
 public class ProjectTaskServiceImpl implements ProjectTaskService{
 
     private final ProjectTaskRepository repository;
-    private final ProjectTaskInDtoToProjectTask mapper;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void save(ProjectTaskInDTO projectTaskInDTO) {
-        ProjectTask projectTask = mapper.map(projectTaskInDTO);
+    public void save(ProjectTask projectTask) {
         repository.save(projectTask);
     }
 

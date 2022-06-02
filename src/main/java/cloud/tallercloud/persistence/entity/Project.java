@@ -2,8 +2,11 @@ package cloud.tallercloud.persistence.entity;
 
 
 
-import lombok.Getter;
-import lombok.Setter;
+import cloud.tallercloud.commons.EntityBase;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -16,42 +19,35 @@ import java.util.Objects;
 @Setter
 @Entity
 @Table(name = "project")
-public class Project {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class Project extends EntityBase {
+    @NotBlank(message = "You must fill this field")
     @Column(unique = true ,name = "projectName", nullable = false)
     private String projectName;
-
+    @NotBlank(message = "You must fill this field")
+    @Size(min = 5,max = 7,message = "The project identifier value must be between 5 and 7")
     @Column(name = "projectIdentifier", unique = true , nullable = false, updatable = false)
     private String projectIdentifier;
-
+    @NotBlank(message = "You must fill this field")
     @Column(name = "description", nullable = false)
     private String description;
-
+    @JsonFormat(pattern="yyyy-MM-dd")
     @Column(name = "startDate")
-    private Date startDate;
-
+    private String startDate;
+    @JsonFormat(pattern="yyyy-MM-dd")
     @Column(name = "endDate")
-    private Date endDate;
+    private String endDate;
 
+    @JsonManagedReference
+    @OneToOne(fetch = FetchType.EAGER,cascade =CascadeType.PERSIST,mappedBy = "project")
+    private Backlog backlog;
+
+    /**
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name= "backlog_id")
     private Backlog backlog;
+    **/
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Project project = (Project) o;
-
-        return Objects.equals(id,project.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
 }

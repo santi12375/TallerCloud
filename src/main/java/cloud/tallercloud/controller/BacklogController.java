@@ -3,8 +3,8 @@ package cloud.tallercloud.controller;
 import cloud.tallercloud.commons.FormatParser;
 import cloud.tallercloud.helpers.Response;
 import cloud.tallercloud.helpers.ResponseBuild;
+import cloud.tallercloud.persistence.entity.Backlog;
 import cloud.tallercloud.services.BacklogService;
-import cloud.tallercloud.services.dto.BacklogInDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -21,12 +21,12 @@ public class BacklogController {
     private final FormatParser formatParser;
 
     @PostMapping
-    public Response save(@Valid @RequestBody BacklogInDTO backlogInDTO , BindingResult result){
+    public Response save(@Valid @RequestBody Backlog backlog , BindingResult result){
         if (result.hasErrors()) {
             return builder.failed(formatParser.formatMessage(result));
         }
-        backlogService.save(backlogInDTO);
-        return builder.success(backlogInDTO);
+        backlogService.save(backlog);
+        return builder.success(backlog);
     }
 
     @GetMapping

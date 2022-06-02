@@ -1,10 +1,12 @@
 package cloud.tallercloud.persistence.entity;
 
 
+import cloud.tallercloud.commons.EntityBase;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -16,15 +18,25 @@ import java.util.Objects;
 @Setter
 @Entity
 @Table(name = "backlog")
-public class Backlog {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class Backlog extends EntityBase {
 
-    @NotBlank(message = "You must fill this field")
+    @NotBlank (message = "El projectIdentifier no puede ser vacio")
     @Column(name = "projectIdentifier", nullable = false)
     private String projectIdentifier;
 
+    @JsonBackReference
+    @OneToOne(fetch = FetchType.EAGER)
+    @NotEmpty (message = "El projectIdentifier no puede ser vacio")
+    private Project project;
+
+    @OneToMany(mappedBy = "backlog",fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
+    @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+    private List<ProjectTask> projectTasks;
+
+    /**
     @JsonManagedReference
     @OneToMany(mappedBy = "backlog", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private List<ProjectTask> projectTask;
@@ -32,18 +44,7 @@ public class Backlog {
 
     @OneToOne(mappedBy = "backlog", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private Project project;
+    **/
 
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Backlog backlog = (Backlog) o;
-        return Objects.equals(id,backlog.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
 }

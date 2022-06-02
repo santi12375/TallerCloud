@@ -3,8 +3,8 @@ package cloud.tallercloud.controller;
 import cloud.tallercloud.commons.FormatParser;
 import cloud.tallercloud.helpers.Response;
 import cloud.tallercloud.helpers.ResponseBuild;
+import cloud.tallercloud.persistence.entity.Project;
 import cloud.tallercloud.services.ProjectService;
-import cloud.tallercloud.services.dto.ProjectInDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -21,12 +21,12 @@ public class ProjectController {
     private final FormatParser formatParser;
 
     @PostMapping
-    public Response save(@Valid @RequestBody ProjectInDTO projectInDTO, BindingResult result){
+    public Response save(@Valid @RequestBody Project project, BindingResult result){
         if (result.hasErrors()) {
             return builder.failed(formatParser.formatMessage(result));
         }
-        projectService.save(projectInDTO);
-        return builder.success(projectInDTO);
+        projectService.save(project);
+        return builder.success(project);
     }
 
     @GetMapping
