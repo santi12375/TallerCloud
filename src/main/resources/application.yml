@@ -2,7 +2,7 @@ spring:
   application:
     name: taller1
   datasource:
-    driver-class-name: org.postgresql.Driver
+    driver-class-name: org.h2.Driver
     username: ijkwwhpdybbwns
     password: 618674400ebb879c38c57516926b82df5fe9b87b144ad2655cd7007e44327426
     url: jdbc:postgresql://ec2-44-196-174-238.compute-1.amazonaws.com/d2fdji2rvfmafu
@@ -13,8 +13,11 @@ spring:
     show-sql: true
     database-platform: org.hibernate.dialect.H2Dialect
     defer-datasource-initialization: true
-    hibernate:
-      ddl-auto: create-drop
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
 server:
   servlet:
     context-path: /taller1/v1
