@@ -2,10 +2,10 @@ spring:
   application:
     name: taller1
   datasource:
-    driver-class-name: org.h2.Driver
-    username: sa
-    password: sa
-    url: "jdbc:h2:mem:taller1;"
+    driver-class-name: org.postgresql.Driver
+    username: ijkwwhpdybbwns
+    password: 618674400ebb879c38c57516926b82df5fe9b87b144ad2655cd7007e44327426
+    url: jdbc:postgresql://ec2-44-196-174-238.compute-1.amazonaws.com/d2fdji2rvfmafu
   h2:
     console:
       enabled: true
@@ -18,4 +18,4 @@ spring:
 server:
   servlet:
     context-path: /taller1/v1
-  port: 9050
+  port: 5432
