@@ -1,6 +1,8 @@
 package cloud.tallercloud.helpers;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.HttpStatus.OK;
@@ -26,4 +28,9 @@ public class ResponseBuild {
                 .code(INTERNAL_SERVER_ERROR.value()).build();
     }
 
+    public Response notFound(Object data) {
+        return Response.builder()
+                .data(data)
+                .code(OK.value()).build();
+    }
 }

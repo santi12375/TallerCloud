@@ -27,5 +27,10 @@ public class ProjectTaskServiceImpl implements ProjectTaskService{
     @Transactional(readOnly = true)
     public List<ProjectTask> findAll() { return repository.findAll(); }
 
+    @Override
+    public List<ProjectTask> findTaskByProject(String id) {
+        return repository.findProjectTasksByProject(id);
+    }
+
 
 }

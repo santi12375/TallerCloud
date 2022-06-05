@@ -9,5 +9,6 @@ public interface ProjectTaskService {
     void save(ProjectTask projectTask);
 
     List<ProjectTask> findAll();
+    List<ProjectTask> findTaskByProject(String id);
 
 }
