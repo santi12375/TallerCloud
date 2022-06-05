@@ -36,4 +36,5 @@ public class ResponseBuild {
         return  Response.builder()
                 .code(NOT_FOUND.toString()).build();
     }
+
 }

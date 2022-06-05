@@ -22,6 +22,7 @@ public class ProjectController {
 
     @PostMapping
     public Response save(@Valid @RequestBody Project project, BindingResult result){
+
         if (result.hasErrors()) {
             return builder.failed(formatParser.formatMessage(result));
         }

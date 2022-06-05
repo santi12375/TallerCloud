@@ -26,4 +26,9 @@ public class ProjectServiceImpl implements ProjectService{
         return projectRepository.findAll();
     }
 
+    @Override
+    public List<Project> findProjectByProjectIdentifier(String identifier) {
+        return projectRepository.findProjectByProjectIdentifier(identifier);
+    }
+
 }

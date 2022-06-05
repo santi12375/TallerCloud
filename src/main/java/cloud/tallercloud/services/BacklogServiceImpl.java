@@ -26,6 +26,4 @@ public class BacklogServiceImpl implements BacklogService{
         return backlogRepository.findAll();
     }
 
-
-
 }
