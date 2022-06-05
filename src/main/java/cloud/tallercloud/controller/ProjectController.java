@@ -25,11 +25,18 @@ public class ProjectController {
         if (result.hasErrors()) {
             return builder.failed(formatParser.formatMessage(result));
         }
+        if (project.getProjectIdentifier().length()<5 || project.getProjectIdentifier().length()>7){
+            return builder.BadRequest();
+        }
         projectService.save(project);
         return builder.success(project);
     }
 
     @GetMapping
-    public Response findAll() { return builder.success(projectService.findAll());}
+    public Response findAll() {
+        if (projectService.findAll().isEmpty()){
+            return builder.noFount();
+        }
+        return builder.GetSuccess(projectService.findAll());}
 
 }

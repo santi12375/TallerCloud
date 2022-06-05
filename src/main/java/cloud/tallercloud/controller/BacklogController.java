@@ -20,6 +20,7 @@ public class BacklogController {
     private final ResponseBuild builder;
     private final FormatParser formatParser;
 
+
     @PostMapping
     public Response save(@Valid @RequestBody Backlog backlog , BindingResult result){
         if (result.hasErrors()) {
@@ -31,7 +32,7 @@ public class BacklogController {
 
     @GetMapping
     public Response findAll(){
-        return builder.success(backlogService.findAll());
+        return builder.GetSuccess(backlogService.findAll());
     }
 
 
