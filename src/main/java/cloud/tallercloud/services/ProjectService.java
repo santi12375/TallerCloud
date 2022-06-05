@@ -11,4 +11,5 @@ public interface ProjectService {
     List<Project> findAll();
 
     List<Project> findProjectByProjectIdentifier(String identifier);
+
 }

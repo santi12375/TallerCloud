@@ -22,11 +22,12 @@ public class ProjectController {
 
     @PostMapping
     public Response save(@Valid @RequestBody Project project, BindingResult result){
+
         if (result.hasErrors()) {
             return builder.failed(formatParser.formatMessage(result));
         }
         if (project.getProjectIdentifier().length()<5 || project.getProjectIdentifier().length()>7){
-            return builder.badRequest();
+            return builder.BadRequest();
         }
         projectService.save(project);
         return builder.success(project);
@@ -35,9 +36,8 @@ public class ProjectController {
     @GetMapping
     public Response findAll() {
         if (projectService.findAll().isEmpty()){
-            return builder.notFound();
+            return builder.noFount();
         }
-        return builder.getSuccess(projectService.findAll());
-    }
+        return builder.GetSuccess(projectService.findAll());}
 
 }

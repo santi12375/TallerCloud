@@ -9,7 +9,7 @@ import static org.springframework.http.HttpStatus.*;
 @Component
 public class ResponseBuild {
 
-    public Response getSuccess(Object data) {
+    public Response GetSuccess(Object data){
         return Response.builder()
                 .data(data)
                 .code(OK.toString()).build();
@@ -27,13 +27,14 @@ public class ResponseBuild {
                 .code(INTERNAL_SERVER_ERROR.toString()).build();
     }
 
-    public Response badRequest() {
+    public Response BadRequest(){
         return Response.builder()
                 .code(BAD_REQUEST.toString()).build();
     }
 
-    public Response notFound() {
-        return Response.builder()
+    public Response noFount(){
+        return  Response.builder()
                 .code(NOT_FOUND.toString()).build();
     }
+
 }

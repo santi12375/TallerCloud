@@ -25,4 +25,5 @@ public class BacklogServiceImpl implements BacklogService{
     public List<Backlog> findAll() {
         return backlogRepository.findAll();
     }
+
 }
