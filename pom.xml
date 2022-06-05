@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>cloud.tallercloud</groupId>
-    <artifactId>courses</artifactId>
+    <artifactId>Taller</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>TallerCloud</name>
     <description>Demo project for Spring Boot</description>

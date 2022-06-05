@@ -27,13 +27,14 @@ public class Backlog extends EntityBase {
     @Column(name = "projectIdentifier", nullable = false)
     private String projectIdentifier;
 
-    @JsonBackReference
+
     @OneToOne(fetch = FetchType.EAGER)
     @NotEmpty (message = "El projectIdentifier no puede ser vacio")
     private Project project;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "backlog",fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
-    @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+    @NotEmpty
     private List<ProjectTask> projectTasks;
 
     /**
