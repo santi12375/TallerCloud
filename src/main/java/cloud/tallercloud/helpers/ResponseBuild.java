@@ -4,33 +4,36 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.*;
 
 @Component
 public class ResponseBuild {
 
-    public Response success() {
+    public Response getSuccess(Object data) {
         return Response.builder()
-                .data(OK)
-                .code(OK.value()).build();
+                .data(data)
+                .code(OK.toString()).build();
     }
 
     public Response success(Object data) {
         return Response.builder()
                 .data(data)
-                .code(OK.value()).build();
+                .code(CREATED.toString()).build();
     }
 
     public Response failed(Object data) {
         return Response.builder()
                 .data(data)
-                .code(INTERNAL_SERVER_ERROR.value()).build();
+                .code(INTERNAL_SERVER_ERROR.toString()).build();
     }
 
-    public Response notFound(Object data) {
+    public Response badRequest() {
         return Response.builder()
-                .data(data)
-                .code(OK.value()).build();
+                .code(BAD_REQUEST.toString()).build();
+    }
+
+    public Response notFound() {
+        return Response.builder()
+                .code(NOT_FOUND.toString()).build();
     }
 }

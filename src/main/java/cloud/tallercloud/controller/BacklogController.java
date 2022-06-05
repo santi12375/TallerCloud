@@ -5,6 +5,7 @@ import cloud.tallercloud.helpers.Response;
 import cloud.tallercloud.helpers.ResponseBuild;
 import cloud.tallercloud.persistence.entity.Backlog;
 import cloud.tallercloud.services.BacklogService;
+import cloud.tallercloud.services.ProjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -17,14 +18,19 @@ import javax.validation.Valid;
 public class BacklogController {
 
     private final BacklogService backlogService;
+    private final ProjectService projectService;
     private final ResponseBuild builder;
     private final FormatParser formatParser;
 
     @PostMapping
     public Response save(@Valid @RequestBody Backlog backlog , BindingResult result){
+
         if (result.hasErrors()) {
             return builder.failed(formatParser.formatMessage(result));
         }
+        if(projectService.findProjectByProjectIdentifier(backlog.getProjectIdentifier()).isEmpty()){
+            return builder.badRequest();
+        };
         backlogService.save(backlog);
         return builder.success(backlog);
     }
