@@ -11,4 +11,5 @@ public interface ProjectTaskService {
     List<ProjectTask> findAll();
     List<ProjectTask> findTaskByProject(String id);
 
+    double findHoursProject(String id);
 }

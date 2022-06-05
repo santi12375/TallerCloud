@@ -26,6 +26,10 @@ public interface ProjectTaskRepository extends JpaRepository<ProjectTask,Long> {
     @Query(value = "SELECT * FROM project_task where project_identifier =:identifier", nativeQuery = true)
     List<ProjectTask> findProjectTasksByProject(@Param("identifier")String identifier);
 
+    @ReadOnlyProperty
+    @Query(value = "SELECT SUM(hours) FROM project_task WHERE project_identifier =:identifier AND task_status !='deleted' ", nativeQuery = true)
+    double GetHoursProject(@Param("identifier")String identifier);
+
     @Modifying
     @Query(value = "UPDATE PROJECT_TASK SET task_Status = In_Progress WHERE ID =:id",nativeQuery = true)
     void markProjectTaskAsInProgress(@Param("id") Long id);

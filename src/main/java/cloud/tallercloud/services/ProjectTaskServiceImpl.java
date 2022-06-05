@@ -32,5 +32,10 @@ public class ProjectTaskServiceImpl implements ProjectTaskService{
         return repository.findProjectTasksByProject(id);
     }
 
+    @Override
+    public double findHoursProject(String id) {
+        return repository.GetHoursProject(id);
+    }
+
 
 }

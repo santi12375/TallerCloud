@@ -37,5 +37,8 @@ public class ProjectTaskController {
 
     @GetMapping("/project/{projectIdentifier}")
     public List<ProjectTask> findTaskAll(@PathVariable("projectIdentifier") String projectIdentifier){ return this.projectTaskService.findTaskByProject(projectIdentifier);}
+
+    @GetMapping("/project/hours/{projectIdentifier}")
+    public double GetHours(@PathVariable("projectIdentifier") String projectIdentifier){ return this.projectTaskService.findHoursProject(projectIdentifier);}
 }
 
