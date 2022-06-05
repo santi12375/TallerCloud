@@ -37,5 +37,16 @@ public class ProjectTaskServiceImpl implements ProjectTaskService{
         return repository.GetHoursProject(id);
     }
 
+    @Override
+    public double findHoursProjectByStatus(String id, String status) {
+        return repository.GetHoursProjectStatus(id,status);
+    }
+
+    @Override
+    @Transactional
+    public void deleteTaskStatus(Long id, String identifier) {
+        repository.markProjectTaskAsDeleted(id,identifier);
+    }
+
 
 }

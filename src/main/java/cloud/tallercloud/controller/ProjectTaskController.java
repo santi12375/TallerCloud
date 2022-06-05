@@ -40,5 +40,11 @@ public class ProjectTaskController {
 
     @GetMapping("/project/hours/{projectIdentifier}")
     public double GetHours(@PathVariable("projectIdentifier") String projectIdentifier){ return this.projectTaskService.findHoursProject(projectIdentifier);}
+
+    @GetMapping("/project/hours/{projectIdentifier}/{status}")
+    public double GetHoursStatus(@PathVariable("projectIdentifier") String projectIdentifier, @PathVariable("status") String status){ return this.projectTaskService.findHoursProjectByStatus(projectIdentifier,status);}
+
+    @PatchMapping("/{idtask}/{projectIdentifier}")
+    public void PatchStatusToDeleted(@PathVariable("idtask") Long idtask, @PathVariable("projectIdentifier") String projectidentifier){this.projectTaskService.deleteTaskStatus(idtask,projectidentifier);}
 }
 
