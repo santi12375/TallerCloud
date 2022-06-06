@@ -4,6 +4,8 @@ import cloud.tallercloud.commons.FormatParser;
 import cloud.tallercloud.helpers.Response;
 import cloud.tallercloud.helpers.ResponseBuild;
 import cloud.tallercloud.persistence.entity.ProjectTask;
+import cloud.tallercloud.services.BacklogService;
+import cloud.tallercloud.services.ProjectService;
 import cloud.tallercloud.services.ProjectTaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.BindingResult;
@@ -18,6 +20,9 @@ import java.util.List;
 public class ProjectTaskController {
 
     private final ProjectTaskService projectTaskService;
+    private final ProjectService projectService;
+    private final BacklogService backlogService;
+
     private final ResponseBuild builder;
     private final FormatParser formatParser;
 
@@ -25,6 +30,12 @@ public class ProjectTaskController {
     public Response save(@Valid @RequestBody ProjectTask projectTask, BindingResult result) {
         if (result.hasErrors()) {
             return builder.failed(formatParser.formatMessage(result));
+        }
+        if(projectService.findProjectByProjectIdentifier(projectTask.getProjectIdentifier()).isEmpty()){
+            return builder.BadRequest();
+        }
+        if(backlogService.findBacklogById(projectTask.getBacklog().getId())){
+            return builder.BadRequest();
         }
         projectTaskService.save(projectTask);
         return builder.success(projectTask);

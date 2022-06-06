@@ -19,4 +19,6 @@ public interface BacklogRepository extends JpaRepository<Backlog,Long> {
 
     List<Backlog> findBacklogByProjectId(Long projectId);
 
+    List<Backlog> findBacklogById(Long backlogId);
+
 }

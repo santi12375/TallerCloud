@@ -24,7 +24,7 @@ public class ResponseBuild {
     public Response failed(Object data) {
         return Response.builder()
                 .data(data)
-                .code(INTERNAL_SERVER_ERROR.toString()).build();
+                .code(BAD_REQUEST.toString()).build();
     }
 
     public Response BadRequest(){

@@ -15,4 +15,6 @@ public interface BacklogService {
 
     boolean findBacklogByProjectId(Long projectId);
 
+    boolean findBacklogById(Long backlogId);
+
 }
