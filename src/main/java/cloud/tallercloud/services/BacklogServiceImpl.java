@@ -13,6 +13,7 @@ import java.util.List;
 public class BacklogServiceImpl implements BacklogService{
 
     private final BacklogRepository backlogRepository;
+    private List<Backlog> backlogList;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -24,6 +25,12 @@ public class BacklogServiceImpl implements BacklogService{
     @Transactional(readOnly = true)
     public List<Backlog> findAll() {
         return backlogRepository.findAll();
+    }
+
+    @Override
+    public boolean findBacklogsByProjectIdentifier(String projectIdentifier) {
+        backlogList = backlogRepository.findBacklogByProjectIdentifier(projectIdentifier);
+        return !backlogList.isEmpty();
     }
 
 }

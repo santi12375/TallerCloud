@@ -37,4 +37,9 @@ public class ResponseBuild {
                 .code(NOT_FOUND.toString()).build();
     }
 
+    public Response uniqueRestriction(){
+        return  Response.builder()
+                .code(FOUND.toString()+ " One project must have only one backlog").build();
+    }
+
 }

@@ -33,7 +33,9 @@ public class BacklogController {
         if(projectService.findProjectByProjectIdentifier(backlog.getProjectIdentifier()).isEmpty()){
             return builder.BadRequest();
         }
-
+        if(backlogService.findBacklogsByProjectIdentifier(backlog.getProjectIdentifier())){
+            return builder.uniqueRestriction();
+        }
         backlogService.save(backlog);
         return builder.success(backlog);
     }

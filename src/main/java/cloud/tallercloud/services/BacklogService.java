@@ -11,6 +11,6 @@ public interface BacklogService {
 
     List<Backlog> findAll();
 
-
+    boolean findBacklogsByProjectIdentifier(String projectIdentifier);
 
 }
