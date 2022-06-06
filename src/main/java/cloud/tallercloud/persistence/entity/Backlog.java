@@ -35,15 +35,4 @@ public class Backlog extends EntityBase {
     @OneToMany(mappedBy = "backlog",fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
     private List<ProjectTask> projectTasks;
 
-    /**
-    @JsonManagedReference
-    @OneToMany(mappedBy = "backlog", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    private List<ProjectTask> projectTask;
-
-
-    @OneToOne(mappedBy = "backlog", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    private Project project;
-    **/
-
-
 }

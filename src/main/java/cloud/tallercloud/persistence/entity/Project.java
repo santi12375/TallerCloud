@@ -41,14 +41,7 @@ public class Project extends EntityBase {
     private String endDate;
 
     @JsonManagedReference
-    //@JoinColumn(name = "backlog_id")
     @OneToOne(fetch = FetchType.EAGER,cascade =CascadeType.PERSIST,mappedBy = "project")
     private Backlog backlog;
-
-    /**
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name= "backlog_id")
-    private Backlog backlog;
-    **/
 
 }
