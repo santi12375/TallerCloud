@@ -19,6 +19,7 @@ public class ProjectServiceMock {
 
     @Mock
     private ProjectRepository projectRepository;
+    @Mock
     private ProjectService projectService;
 
     @BeforeEach
@@ -27,7 +28,7 @@ public class ProjectServiceMock {
         projectService = new ProjectServiceImpl(projectRepository);
 
         Project project= Project.builder()
-                .projectName("ujikmaaa")
+                .projectName("Test Project")
                 .projectIdentifier("84576")
                 .description("test")
                 .startDate("2021-01-05")
