@@ -13,4 +13,6 @@ public interface BacklogService {
 
     boolean findBacklogsByProjectIdentifier(String projectIdentifier);
 
+    boolean findBacklogByProjectId(Long projectId);
+
 }

@@ -33,4 +33,10 @@ public class BacklogServiceImpl implements BacklogService{
         return !backlogList.isEmpty();
     }
 
+    @Override
+    public boolean findBacklogByProjectId(Long projectId) {
+        backlogList = backlogRepository.findBacklogByProjectId(projectId);
+        return !backlogList.isEmpty();
+    }
+
 }

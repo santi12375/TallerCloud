@@ -36,6 +36,9 @@ public class BacklogController {
         if(backlogService.findBacklogsByProjectIdentifier(backlog.getProjectIdentifier())){
             return builder.uniqueRestriction();
         }
+        if(backlogService.findBacklogByProjectId(backlog.getProject().getId())){
+            return builder.uniqueRestriction();
+        }
         backlogService.save(backlog);
         return builder.success(backlog);
     }
