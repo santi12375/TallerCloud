@@ -9,7 +9,12 @@ import static org.springframework.http.HttpStatus.*;
 @Component
 public class ResponseBuild {
 
-    public Response GetSuccess(Object data){
+    public Response logicalDeleteSuccess(){
+        return Response.builder()
+                .code(OK.toString()).build();
+    }
+
+    public Response getSuccess(Object data){
         return Response.builder()
                 .data(data)
                 .code(OK.toString()).build();
@@ -27,12 +32,12 @@ public class ResponseBuild {
                 .code(BAD_REQUEST.toString()).build();
     }
 
-    public Response BadRequest(){
+    public Response badRequest(){
         return Response.builder()
                 .code(BAD_REQUEST.toString()).build();
     }
 
-    public Response noFount(){
+    public Response noFound(){
         return  Response.builder()
                 .code(NOT_FOUND.toString()).build();
     }
@@ -40,6 +45,12 @@ public class ResponseBuild {
     public Response uniqueRestriction(){
         return  Response.builder()
                 .code(FOUND.toString()+ " One project must have only one backlog").build();
+    }
+
+    public Response doubleValue(Double value){
+        return Response.builder()
+                .code(OK.toString())
+                .data(value.toString()).build();
     }
 
 }

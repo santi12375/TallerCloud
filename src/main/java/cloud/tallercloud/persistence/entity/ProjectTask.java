@@ -20,11 +20,11 @@ import java.util.Objects;
 @Builder
 public class ProjectTask extends EntityBase {
 
-    @NotEmpty(message = "El name no puede ser vacio")
+    @NotBlank(message = "El name no puede ser vacio")
     @Column(name = "name", nullable = false)
     private String name;
 
-    @NotEmpty(message = "El summary no puede ser vacio")
+    @NotBlank(message = "El summary no puede ser vacio")
     @Column(name = "summary", nullable = false)
     private String summary;
 
@@ -49,7 +49,7 @@ public class ProjectTask extends EntityBase {
     @JsonFormat(pattern="yyyy-MM-dd")
     @Column(name = "endDate")
     private Date endDate;
-    @NotEmpty(message = "No puede estar en blanco y no se puede actualizar")
+    @NotBlank(message = "No puede estar en blanco y no se puede actualizar")
     @Column(name = "projectIdentifier", updatable = false)
     private String projectIdentifier;
 

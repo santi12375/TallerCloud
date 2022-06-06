@@ -32,12 +32,18 @@ public class ProjectTaskController {
             return builder.failed(formatParser.formatMessage(result));
         }
         if(projectService.findProjectByProjectIdentifier(projectTask.getProjectIdentifier()).isEmpty()){
-            return builder.BadRequest();
+            return builder.badRequest();
         }
         if(backlogService.findBacklogById(projectTask.getBacklog().getId())){
-            return builder.BadRequest();
+            return builder.badRequest();
         }
-        projectTaskService.save(projectTask);
+
+        try {
+            projectTaskService.save(projectTask);
+        }catch (Exception e){
+            return builder.badRequest();
+        }
+
         return builder.success(projectTask);
     }
 
@@ -47,15 +53,40 @@ public class ProjectTaskController {
     }
 
     @GetMapping("/project/{projectIdentifier}")
-    public List<ProjectTask> findTaskAll(@PathVariable("projectIdentifier") String projectIdentifier){ return this.projectTaskService.findTaskByProject(projectIdentifier);}
+    public List<ProjectTask> findTaskAll(@PathVariable("projectIdentifier") String projectIdentifier){
+        return this.projectTaskService.findTaskByProject(projectIdentifier);
+    }
 
     @GetMapping("/project/hours/{projectIdentifier}")
-    public double GetHours(@PathVariable("projectIdentifier") String projectIdentifier){ return this.projectTaskService.findHoursProject(projectIdentifier);}
+    public Response GetHours(@PathVariable("projectIdentifier") String projectIdentifier){
+        try {
+            return builder.doubleValue(this.projectTaskService.findHoursProject(projectIdentifier));
+        }catch (Exception e){
+            return builder.noFound();
+        }
+    }
 
     @GetMapping("/project/hours/{projectIdentifier}/{status}")
-    public double GetHoursStatus(@PathVariable("projectIdentifier") String projectIdentifier, @PathVariable("status") String status){ return this.projectTaskService.findHoursProjectByStatus(projectIdentifier,status);}
+    public Response GetHoursStatus(@PathVariable("projectIdentifier")String projectIdentifier,
+                                 @PathVariable("status") String status){
+        try {
+            return builder.doubleValue(this.projectTaskService.findHoursProjectByStatus(projectIdentifier,status));
+        }catch (Exception e){
+            return builder.noFound();
+        }
+
+    }
 
     @PatchMapping("/{idtask}/{projectIdentifier}")
-    public void PatchStatusToDeleted(@PathVariable("idtask") Long idtask, @PathVariable("projectIdentifier") String projectidentifier){this.projectTaskService.deleteTaskStatus(idtask,projectidentifier);}
+    public Response PatchStatusToDeleted(@PathVariable("idtask") Long idtask,
+                                     @PathVariable("projectIdentifier") String projectidentifier){
+        try {
+            this.projectTaskService.deleteTaskStatus(idtask,projectidentifier);
+            return builder.logicalDeleteSuccess();
+        }catch (Exception e){
+            return builder.noFound();
+        }
+
+    }
 }
 

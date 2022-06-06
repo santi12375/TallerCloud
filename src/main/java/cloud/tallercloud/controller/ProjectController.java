@@ -6,8 +6,11 @@ import cloud.tallercloud.helpers.ResponseBuild;
 import cloud.tallercloud.persistence.entity.Project;
 import cloud.tallercloud.services.ProjectService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 
 import javax.validation.Valid;
 
@@ -26,18 +29,20 @@ public class ProjectController {
         if (result.hasErrors()) {
             return builder.failed(formatParser.formatMessage(result));
         }
-        if (project.getProjectIdentifier().length()<5 || project.getProjectIdentifier().length()>7){
-            return builder.BadRequest();
+        try {
+            projectService.save(project);
+        }catch (Exception e){
+            return builder.badRequest();
         }
-        projectService.save(project);
+
         return builder.success(project);
     }
 
     @GetMapping
     public Response findAll() {
         if (projectService.findAll().isEmpty()){
-            return builder.noFount();
+            return builder.noFound();
         }
-        return builder.GetSuccess(projectService.findAll());}
+        return builder.getSuccess(projectService.findAll());}
 
 }

@@ -31,7 +31,7 @@ public class BacklogController {
             return builder.failed(formatParser.formatMessage(result));
         }
         if(projectService.findProjectByProjectIdentifier(backlog.getProjectIdentifier()).isEmpty()){
-            return builder.BadRequest();
+            return builder.badRequest();
         }
         if(backlogService.findBacklogsByProjectIdentifier(backlog.getProjectIdentifier())){
             return builder.uniqueRestriction();
@@ -39,13 +39,18 @@ public class BacklogController {
         if(backlogService.findBacklogByProjectId(backlog.getProject().getId())){
             return builder.uniqueRestriction();
         }
-        backlogService.save(backlog);
+
+        try {
+            backlogService.save(backlog);
+        }catch (Exception e){
+            return builder.badRequest();
+        }
         return builder.success(backlog);
     }
 
     @GetMapping
     public Response findAll(){
-        return builder.GetSuccess(backlogService.findAll());
+        return builder.getSuccess(backlogService.findAll());
     }
 
 
