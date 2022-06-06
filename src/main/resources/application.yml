@@ -2,7 +2,7 @@ spring:
   application:
     name: app-TallerCloud
   profiles:
-    active: dev
+    active: prod
 server:
   servlet:
     context-path: /taller1/v1
